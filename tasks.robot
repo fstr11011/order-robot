@@ -5,16 +5,21 @@ Documentation
 ...               Saves the screenshot of the ordered robot.
 ...               Embeds the screenshot of the robot to the PDF receipt.
 ...               Creates ZIP archive of the receipts and the images.
-Library           RPA.Browser.Selenium    auto_close=${FALSE}
+Library           RPA.Browser.Selenium
 Library           RPA.HTTP
 Library           RPA.Tables
 Library           RPA.Dialogs
-Library           Dialogs
 Library           RPA.PDF
+Library           RPA.FileSystem
+Library           RPA.Archive
+Library           RPA.Robocorp.Vault
 
 *** Variables ***
 ${GLOBAL_RETRY_AMOUNT}=    5x
 ${GLOBAL_RETRY_INTERVAL}=    3.0s
+${SCREENSHOTS_DIR}=    ${OUTPUT_DIR}${/}screenshots
+${RECEIPTS_DIR}=    ${OUTPUT_DIR}${/}receipts
+${OUTPUT_ZIP}=    ${OUTPUT_DIR}${/}receipts.zip
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
@@ -30,20 +35,24 @@ Order robots from RobotSpareBin Industries Inc
         Embed the robot screenshot to the receipt PDF file    ${screenshot}    ${pdf}
         Go to order another robot
     END
-    # Create a ZIP file of the receipts
+    Create a ZIP file of the receipts
 
 *** Keywords ***
 Open the robot order website
+    ${secret}=    Get Secret    secret_name=credentials
     Open Available Browser    url=https://robotsparebinindustries.com/    browser_selection=chrome    maximized=False
-    Input Text    locator=alias:Username    text=maria    clear=True
-    Input Password    locator=alias:Password    password=thoushallnotpass    clear=True
+    Input Text    locator=alias:Username    text=${secret}[username]    clear=True
+    Input Password    locator=alias:Password    password=${secret}[password]    clear=True
     Submit Form
     Wait Until Page Contains Element    locator=alias:Order robot tab
     Click Link    locator=alias:Order robot tab
     Wait Until Page Contains Element    locator=alias:Build and order your robot header
 
 Get orders
-    Download    url=https://robotsparebinindustries.com/orders.csv    overwrite=True    target_file=orders.csv
+    Add heading    heading=Enter CSV URL
+    Add text input    name=url    label=CSV Url    placeholder=https://robotsparebinindustries.com/orders.csv
+    ${result}=    Run dialog
+    Download    url=${result.url}    overwrite=True    target_file=orders.csv
     ${orders_table}=    Read table from CSV    path=orders.csv    header=True
     [Return]    ${orders_table}
 
@@ -79,13 +88,13 @@ Click the submit order button
 Store the receipt as a PDF file
     [Arguments]    ${order_number}
     ${receipt}=    Get Element Attribute    locator=id:receipt    attribute=outerHTML
-    ${pdf_file}=    Set Variable    ${OUTPUT_DIR}${/}receipts${/}${order_number}_Receipt.pdf
+    ${pdf_file}=    Set Variable    ${RECEIPTS_DIR}${/}${order_number}_Receipt.pdf
     Html To Pdf    content=${receipt}    output_path=${pdf_file}
     [Return]    ${pdf_file}
 
 Take a screenshot of the robot
     [Arguments]    ${order_number}
-    ${robot_screenshot}=    Set Variable    ${OUTPUT_DIR}${/}screenshots${/}${order_number}_Robot_Screenshot.png
+    ${robot_screenshot}=    Set Variable    ${SCREENSHOTS_DIR}${/}${order_number}_Robot_Screenshot.png
     Screenshot    locator=xpath://*[@id="robot-preview-image"]    filename=${robot_screenshot}
     [Return]    ${robot_screenshot}
 
@@ -101,3 +110,8 @@ Go to order another robot
 
 Click the order another robot button
     Click Button    locator=id:order-another
+
+Create a ZIP file of the receipts
+    Archive Folder With Zip    folder=${RECEIPTS_DIR}    archive_name=${OUTPUT_ZIP}
+    Remove Directory    path=${RECEIPTS_DIR}    recursive=True
+    Remove Directory    path=${SCREENSHOTS_DIR}    recursive=True
