@@ -62,6 +62,13 @@
         "type": "browser",
         "value": "//label[contains(.,'3. Legs:')]/../input"
     },
+    "Submit Order": {
+        "screenshot": ".images/submit-order-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "order"
+    },
     "Username": {
         "screenshot": ".images/username-screenshot.png",
         "source": "https://robotsparebinindustries.com/#/",
