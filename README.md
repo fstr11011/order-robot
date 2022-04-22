@@ -11,3 +11,4 @@ This template robot:
 ## Learning materials
 
 - [All docs related to Robot Framework](https://robocorp.com/docs/languages-and-frameworks/robot-framework)
+- [Instructions](https://robocorp.com/docs/courses/build-a-robot#13-preview-the-robot) left off on step 13

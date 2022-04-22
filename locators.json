@@ -1,0 +1,72 @@
+{
+    "Build and order your robot header": {
+        "screenshot": ".images/build-and-order-your-robot-header-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//h2[contains(.,'Build and order your robot!')]"
+    },
+    "I guess so modal button": {
+        "screenshot": ".images/i-guess-so-modal-button-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//button[contains(.,'I guess so...')]"
+    },
+    "Input Shipping Address": {
+        "screenshot": ".images/input-shipping-address-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//input[@id='address']"
+    },
+    "Log in": {
+        "screenshot": ".images/log-in-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//button[@type='submit']"
+    },
+    "Order robot tab": {
+        "screenshot": ".images/order-robot-tab-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/",
+        "strategy": "link",
+        "type": "browser",
+        "value": "Order your robot!"
+    },
+    "Password": {
+        "screenshot": ".images/password-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//input[@id='password']"
+    },
+    "Select Body": {
+        "screenshot": ".images/select-body-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "id-body-1"
+    },
+    "Select Head": {
+        "screenshot": ".images/select-head-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//select[@id='head']"
+    },
+    "Select Legs": {
+        "screenshot": ".images/select-legs-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//label[contains(.,'3. Legs:')]/../input"
+    },
+    "Username": {
+        "screenshot": ".images/username-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//input[@id='username']"
+    }
+}
