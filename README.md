@@ -11,4 +11,5 @@ This template robot:
 ## Learning materials
 
 - [All docs related to Robot Framework](https://robocorp.com/docs/languages-and-frameworks/robot-framework)
-- [Instructions](https://robocorp.com/docs/courses/build-a-robot#19-create-a-zip-file-of-the-receipts) left off on step 19
+- [Instructions](https://robocorp.com/docs/courses/build-a-robot)
+- [Example](https://github.com/joergschultzelutter/robocorp-certification-level-ii)

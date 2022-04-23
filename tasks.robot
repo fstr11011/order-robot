@@ -40,9 +40,9 @@ Order robots from RobotSpareBin Industries Inc
 *** Keywords ***
 Open the robot order website
     ${secret}=    Get Secret    secret_name=credentials
-    Open Available Browser    url=https://robotsparebinindustries.com/    browser_selection=chrome    maximized=False
-    Input Text    locator=alias:Username    text=${secret}[username]    clear=True
-    Input Password    locator=alias:Password    password=${secret}[password]    clear=True
+    Open Available Browser    url=https://robotsparebinindustries.com/    browser_selection=chrome    maximized=${True}
+    Input Text    locator=alias:Username    text=${secret}[username]    clear=${True}
+    Input Password    locator=alias:Password    password=${secret}[password]    clear=${True}
     Submit Form
     Wait Until Page Contains Element    locator=alias:Order robot tab
     Click Link    locator=alias:Order robot tab
@@ -52,7 +52,7 @@ Get orders
     Add heading    heading=Enter CSV URL
     Add text input    name=url    label=CSV Url    placeholder=https://robotsparebinindustries.com/orders.csv
     ${result}=    Run dialog
-    Download    url=${result.url}    overwrite=True    target_file=orders.csv
+    Download    url=${result.url}    overwrite=${True}    target_file=orders.csv
     ${orders_table}=    Read table from CSV    path=orders.csv    header=True
     [Return]    ${orders_table}
 
@@ -102,7 +102,7 @@ Embed the robot screenshot to the receipt PDF file
     [Arguments]    ${screenshot}    ${pdf}
     Open Pdf    source_path=${pdf}
     ${files}=    Create List    ${screenshot}:align=center
-    Add Files To Pdf    files=${files}    target_document=${pdf}    append=True
+    Add Files To Pdf    files=${files}    target_document=${pdf}    append=${True}
     Close Pdf    source_pdf=${pdf}
 
 Go to order another robot
@@ -113,5 +113,5 @@ Click the order another robot button
 
 Create a ZIP file of the receipts
     Archive Folder With Zip    folder=${RECEIPTS_DIR}    archive_name=${OUTPUT_ZIP}
-    Remove Directory    path=${RECEIPTS_DIR}    recursive=True
-    Remove Directory    path=${SCREENSHOTS_DIR}    recursive=True
+    Remove Directory    path=${RECEIPTS_DIR}    recursive=${True}
+    Remove Directory    path=${SCREENSHOTS_DIR}    recursive=${True}
